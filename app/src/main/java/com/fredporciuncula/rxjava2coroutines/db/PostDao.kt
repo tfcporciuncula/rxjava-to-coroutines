@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import com.fredporciuncula.rxjava2coroutines.models.LocalPost
-import io.reactivex.Completable
 
 @Dao
 interface PostDao {
@@ -15,12 +14,12 @@ interface PostDao {
   fun posts(): LiveData<List<LocalPost>>
 
   @Query("DELETE FROM posts")
-  fun clear(): Completable
+  suspend fun clear()
 
-  @Insert fun insert(posts: List<LocalPost>): Completable
+  @Insert suspend fun insert(posts: List<LocalPost>)
 
-  @Transaction fun clearAndInsert(posts: List<LocalPost>) {
-    clear().blockingAwait()
-    insert(posts).blockingAwait()
+  @Transaction suspend fun clearAndInsert(posts: List<LocalPost>) {
+    clear()
+    insert(posts)
   }
 }
