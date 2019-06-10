@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Posts</string>
+    <string name="error_message">Oops… something went wrong.</string>
+</resources>
